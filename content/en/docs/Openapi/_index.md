@@ -34,7 +34,7 @@ This work is still ongoing, there are some inconsistencies between the docs and 
 By default the schema is in parts to for easier maintainability. You can build it with the command below.
 
 ```bash
-npm run build:openapi
+pnpm run build:openapi
 ```
 
 This will output the schema to `content/en/docs/Openapi/openapi.json` and also validate the output for correctness. The end result can be used as-is.

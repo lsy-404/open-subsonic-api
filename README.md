@@ -21,6 +21,12 @@ on Linux.
    docker-compose build
    ```
 
+1. Install the locked Node build tools in the mounted project:
+
+   ```bash
+   docker-compose run --rm site corepack pnpm@10.34.6 install --frozen-lockfile
+   ```
+
 1. Run the built image
 
    ```bash
@@ -39,7 +45,7 @@ on Linux.
 2. To update the openApi files inside docker and validate that your changes are correct run the following command
 
    ```bash
-   docker-compose run site npm run build
+   docker-compose run --rm site pnpm run build
    ```
 
 
@@ -57,30 +63,25 @@ documentation](https://docs.docker.com/compose/gettingstarted/).
 
 ## Setting up the development environment
 
-1. Install dependencies:
-   - [Go][]
-   - [Hugo][]
-   - [Node.js][]
-2. Clone this repository
+1. Install [Go][] and [Node.js][] with Corepack.
+2. Clone this repository:
    ```bash
    git clone https://github.com/deluan/open-subsonic-api
    cd open-subsonic-api
    ```
-3. If you want to do SCSS edits and want to publish these, you need to install `PostCSS`
+3. Install the locked Node tools, including Hugo Extended and the PostCSS toolchain:
    ```bash
-   npm install
+   corepack pnpm@10.34.6 install --frozen-lockfile
    ```
 
 ### Running the website locally
 
-Building and running the site locally requires a recent `extended` version of [Hugo](https://gohugo.io).
-You can find out more about how to install Hugo for your environment in our
-[Getting started](https://www.docsy.dev/docs/getting-started/#prerequisites-and-installation) guide.
+Building and running the site locally uses the locked Hugo Extended binary and PostCSS tools installed by pnpm. For host requirements, see the Docsy [getting-started guide](https://www.docsy.dev/docs/getting-started/#prerequisites-and-installation).
 
-Once you've made your working copy of the site repo, from the repo root folder, run:
+Once you've made your working copy of the site repo and installed the locked dependencies, from the repo root folder, run:
 
 ```bash
-hugo server
+pnpm run start
 ```
 
 ### Troubleshooting
@@ -88,7 +89,7 @@ hugo server
 As you run the website locally, you may run into the following error:
 
 ```
-➜ hugo server
+➜ pnpm run start
 
 INFO 2021/01/21 21:07:55 Using config file: 
 Building sites … INFO 2021/01/21 21:07:55 syncing static files to /
@@ -102,7 +103,7 @@ See this [section](https://www.docsy.dev/docs/get-started/docsy-as-module/instal
 Or you may encounter the following error:
 
 ```
-➜ hugo server
+➜ pnpm run start
 
 Error: failed to download modules: binary with name "go" not found
 ```
